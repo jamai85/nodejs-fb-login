@@ -58,23 +58,23 @@ window.fbAsyncInit = function() {
  * @param response
  */
 function retrieveUserInfo(response) {
-    console.log('getting data')
+    console.log('getting data');
     $.post(
         '/user',
         {
             'accessToken': response.authResponse.accessToken,
-            'userId': response.authResponse.userId
+            'userID': response.authResponse.userID
         },
         function(data) {
             //handle success
-            if (data.error == true) {
+            if (data.error === true) {
 
-            } else if (data.error == false) {
+            } else {
+                var name = data.name,
+                    imgUrl = data.picture.data.url;
                 // update #status with image and name
             }
         },
-        function() {
-            // handle connection error
-        }
+        'json'
     );
 }
