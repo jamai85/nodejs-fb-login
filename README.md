@@ -30,3 +30,4 @@ Create a web page that displays a Facebook user’s name and profile image
 * Clone source code
 * run `npm install` to install required dev dependencies
 * execute `nodejs bin/ww` to begin running local node server
+* A running version can be found at [http://radiant-temple-2599.herokuapp.com/](http://radiant-temple-2599.herokuapp.com/)
