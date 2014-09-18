@@ -9,8 +9,11 @@ html
         div(class="container")
             block content
 
+        div(class="footer")
+            div(class="container")
+                p(class="text-muted") * Please ensure that thrid-party cookies are enabled or at least add an execption for facebook.com.  otherwise login will fail.
     script(src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js")
     //- jQuery local fallback
     script
-        window.jQuery || document.write('<script src="/js/jquery.min.js"><\/script>')
+        //window.jQuery || document.write('<script src="/js/jquery.min.js"><\/script>')
     script(src="/js/fb.login.js", type="text/javascript")
