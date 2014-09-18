@@ -1,8 +1,16 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+#button-holder{
+    min-height: 25px;
 }
 
-a {
-  color: #00B7FF;
+.container {
+    max-width: 500px;
+}
+
+.button-container {
+    display: inline-block;
+    float: left;
+}
+
+#logout {
+    float:right;
 }

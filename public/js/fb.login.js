@@ -78,3 +78,9 @@ function retrieveUserInfo(response) {
         'json'
     );
 }
+
+function logout() {
+    FB.logout(function(resposne) {
+
+    });
+}

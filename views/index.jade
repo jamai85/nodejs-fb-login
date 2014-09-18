@@ -3,5 +3,9 @@ extends layout
 block content
     h1= title
 
+    div(id="button-holder")
+        div(id="login", class="button-container")
+            fb:login-button(scope='public_profile', onlogin='checkLoginState();')
+        div(id="logout", class="button-container")
+            button(onclick="logout();") Log Out
     div(id="status")
-    fb:login-button(scope='public_profile', onlogin='checkLoginState();')
