@@ -29,7 +29,6 @@ window.fbAsyncInit = function() {
  * @param response
  */
 function retrieveUserInfo(response) {
-    console.log('getting data');
     $.post(
         '/user',
         {
@@ -42,7 +41,7 @@ function retrieveUserInfo(response) {
                 $('<span></span>', {
                     class: 'error',
                     text: 'Oops, looks like something went wrong.  Please try again later'
-                });
+                }).appendTo('#status');
             } else {
                 // show logout button and hide login button
                 $('#logout').show();
