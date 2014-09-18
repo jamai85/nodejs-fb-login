@@ -8,7 +8,6 @@ router.get('/', function(req, res) {
 
 router.post('/user', function(req, res) {
     var accessToken = req.body.accessToken,
-        userID      = req.body.userID,
         https       = require('https');
 
     var options = {

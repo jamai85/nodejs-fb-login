@@ -25,3 +25,8 @@ Create a web page that displays a Facebook user’s name and profile image
 
 * Full source code
 * Application hosted on a server for testing
+
+## Installation
+* Clone source code
+* run `npm install` to install required dev dependencies
+* execute `nodejs bin/ww` to begin running local node server

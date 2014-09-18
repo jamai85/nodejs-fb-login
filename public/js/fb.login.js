@@ -1,32 +1,3 @@
-// This is called with the results from from FB.getLoginStatus().
-function statusChangeCallback(response) {
-    console.log('statusChangeCallback');
-    console.log(response);
-    // The response object is returned with a status field that lets the
-    // app know the current login status of the person.
-    // Full docs on the response object can be found in the documentation
-    // for FB.getLoginStatus().
-    if (response.status === 'connected') {
-        // Logged into your app and Facebook.
-        retrieveUserInfo(response);
-    } else if (response.status === 'not_authorized') {
-        // The person is logged into Facebook, but not your app.
-        $('#status').html = 'Please log into this app.';
-    } else {
-        // The person is not logged into Facebook, so we're not sure if
-        // they are logged into this app or not.
-        $('#status').html = 'Please log into Facebook.';
-    }
-}
-
-// This function is called when someone finishes with the Login
-// Button.  See the onlogin handler attached to it in the sample
-// code below.
-function checkLoginState() {
-    FB.getLoginStatus(function(response) {
-        statusChangeCallback(response);
-    });
-}
 
 window.fbAsyncInit = function() {
     FB.init({
@@ -38,7 +9,7 @@ window.fbAsyncInit = function() {
     });
 
     FB.getLoginStatus(function(response) {
-        statusChangeCallback(response);
+        processLoginAttempt(response);
     });
 
 };
@@ -62,25 +33,66 @@ function retrieveUserInfo(response) {
     $.post(
         '/user',
         {
-            'accessToken': response.authResponse.accessToken,
-            'userID': response.authResponse.userID
+            'accessToken': response.authResponse.accessToken
         },
         function(data) {
             //handle success
             if (data.error === true) {
-
+                // report if there was an error
+                $('<span></span>', {
+                    class: 'error',
+                    text: 'Oops, looks like something went wrong.  Please try again later'
+                });
             } else {
+                // show logout button and hide login button
+                $('#logout').show();
+                $('#login').hide();
+
                 var name = data.name,
                     imgUrl = data.picture.data.url;
+
                 // update #status with image and name
+                $('<img />', {
+                    id: 'userImg',
+                    src: imgUrl
+                }).appendTo('#status');
+                $('<span></span>', {
+                    id: 'userName',
+                    text: name
+                }).appendTo('#status');
             }
         },
         'json'
     );
 }
 
+// logout function, triggered onClick() of "Logout" button
 function logout() {
-    FB.logout(function(resposne) {
+    FB.logout(function(response) {
+        $('#status').html('');
+        $('#logout').hide();
+        $('#login').show();
+    });
+}
 
+// Process login response from facebook
+function processLoginAttempt(response) {
+    if (response.status === 'connected') {
+        // Logged into your app and Facebook.
+        retrieveUserInfo(response);
+    } else if (response.status === 'not_authorized') {
+        // The person is logged into Facebook, but not your app.
+        $('#status').html = 'Please log into this app.';
+    } else {
+        // The person is not logged into Facebook, so we're not sure if
+        // they are logged into this app or not.
+        $('#status').html = 'Please log into Facebook.';
+    }
+}
+
+// function called by fb:button-login once a successful login occurs
+function checkLoginState() {
+    FB.getLoginStatus(function(response) {
+        processLoginAttempt(response);
     });
 }
